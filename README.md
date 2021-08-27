@@ -39,13 +39,16 @@ Use `python run.py` to run the model on a live webcam feed
 Use `python run_dataset_C.py` to run the model on the dataset
 
 You will see
+
 ![video](https://drive.google.com/uc?export=view&id=1Y0G9XoT7FDtAHjJoRTPB4D2iKnAudMLu)
 
 Use `python app.py` if you want to see running it on flask
 then enter into the url `http://127.0.0.1:5000/`.After that you see
+
 ![image](https://drive.google.com/uc?export=view&id=1ic2dSztmAkp7DmM4IfLwAmhHW2sSiBz-)
 
 when you click show demo
+
 ![image](https://drive.google.com/uc?export=view&id=1VtuNft5QudP5bjNEmqTxVbNT5GtWgvVg)
 
 ## File Organization 🗄️
