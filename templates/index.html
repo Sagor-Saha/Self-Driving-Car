@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <title>Self Driving Car</title>
+</head>
+
+<body>
+    <div class="landing">
+        <div class="container-fluid">
+            <div class="row vh-100 align-items-center">
+                <div class="col-md-5">
+                    <div class="left-section">
+                        <h1 class="title mb-3">Self Driving Car</h1>
+                        <p class="subtitle mb-5">Much better then tesla with automatic crashing mechanism.
+                            Ninja</p>
+
+                        <button type="button" class="btn btn-primary video-btn" data-bs-toggle="modal"
+                            data-src="{{ url_for('static',filename='videos/demovideo.mp4') }}"
+                            data-bs-target="#myModal">
+                            Show Demo
+                        </button>
+                        <button onclick="formshow()" class="btn btn-danger d-inline-block">Upload Your Video</button>
+                        <form action="http://localhost:5000/uploader" method="POST" class="mt-4" id="uploadForm"
+                            enctype="multipart/form-data">
+                            <p>Select your video (Max length 2 Minutes)</p>
+                            <input id="fileinput" type="file" name="file" required>
+                            <br>
+                            <button onclick="loaderfunc()" class="btn btn-success mt-3">Upload</button>
+                            <img class="loader" id="loader" src="{{ url_for ('static', filename='images/loader.gif') }}"
+                                alt="">
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <img class="car-img img-fluid" src="{{ url_for('static',filename='images/car1.jpg') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></span>
+                    </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="ratio ratio-16x9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always"
+                            allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+    <script>
+        let uploadForm = document.getElementById("uploadForm")
+        let loader = document.getElementById("loader")
+        let input = document.getElementById("fileinput")
+        loader.style.display = "none"
+        uploadForm.style.display = "none";
+
+        function formshow() {
+            if (uploadForm.style.display === "none") {
+                uploadForm.style.display = "block";
+            }
+            else {
+                uploadForm.style.display = "none";
+            }
+        }
+
+        function loaderfunc() {
+            if (input.value != "") {
+                loader.style.display = "inline"
+            }
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Gets the video src from the data-src on each button
+            var $videoSrc;
+            $('.video-btn').click(function () {
+                $videoSrc = $(this).data("src");
+            });
+            // when the modal is opened autoplay it  
+            $('#myModal').on('shown.bs.modal', function (e) {
+
+                // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+                $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
+            })
+            // stop playing the youtube video when I close the modal
+            $('#myModal').on('hide.bs.modal', function (e) {
+                // a poor man's stop video
+                $("#video").attr('src', "");
+
+            })
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
